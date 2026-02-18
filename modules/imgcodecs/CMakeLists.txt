@@ -143,7 +143,7 @@ file(GLOB imgcodecs_ext_hdrs
      "${CMAKE_CURRENT_LIST_DIR}/include/opencv2/${name}/legacy/*.h"
      )
 
-if(APPLE OR APPLE_FRAMEWORK)
+if((APPLE OR APPLE_FRAMEWORK) AND WITH_AVFOUNDATION)
   list(APPEND imgcodecs_srcs ${CMAKE_CURRENT_LIST_DIR}/src/apple_conversions.h)
   list(APPEND imgcodecs_srcs ${CMAKE_CURRENT_LIST_DIR}/src/apple_conversions.mm)
 endif()
@@ -151,7 +151,7 @@ if(IOS OR XROS)
   list(APPEND imgcodecs_srcs ${CMAKE_CURRENT_LIST_DIR}/src/ios_conversions.mm)
   list(APPEND IMGCODECS_LIBRARIES "-framework UIKit")
 endif()
-if(APPLE AND (NOT IOS) AND (NOT XROS))
+if(APPLE AND (NOT IOS) AND (NOT XROS) AND WITH_AVFOUNDATION)
   list(APPEND imgcodecs_srcs ${CMAKE_CURRENT_LIST_DIR}/src/macosx_conversions.mm)
   list(APPEND IMGCODECS_LIBRARIES "-framework AppKit")
 endif()
